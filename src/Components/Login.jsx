@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Checkbox, Flex, FormControl, FormLabel, Input, Box, VStack, Heading, Text, HStack } from '@chakra-ui/react'
+import { Button, Checkbox, FormControl, FormLabel, Input, Box, VStack, Heading, Text, HStack } from '@chakra-ui/react'
 import { useState, useEffect} from 'react'
 import Nav from './Nav';
 import { Link, useNavigate } from 'react-router-dom';
@@ -9,59 +9,57 @@ const Login = () => {
 
   const navigate= useNavigate();
 
-  const initialValue = {
-    username: '',
-    email: '',
-    password: '',
-    tick:false,
- };
 
- const [formValues, setFormValues]= useState(initialValue);
- const [formErrors, setFormErrors]= useState({});
-const [isSubmit, setIsSubmit] = useState(false);
+ const [username, setUserName]= useState('');
+ const [email, setEmail]= useState('');
+ const [password, setPassword]= useState('');
+ const [tick, setTick]= useState('');
+ const [userdata, setUserData]= useState({});
 
-
- const handleChange =(e) => {
-  const {name,value,type, checked} = e.target;
-      setFormValues({...formValues,[name]: type === 'checkbox' ? checked: value });
-  console.log(formValues);
- }
-
- const handleSubmit= (e) => {
-  e.preventDefault();
-  const user= JSON.stringify(formValues);
-  sessionStorage.getItem('user') ===null && sessionStorage.setItem('user', user);
-  // navigate('/Login')
-  setFormErrors(validate(formValues));
-  setIsSubmit(true);
-}
 
 useEffect(() => {
-  console.log(formErrors);
-  if (Object.keys(formErrors).length === 0 && isSubmit) {console.log(formValues);
-  }
-}, [formErrors]);
+  const registerData= sessionStorage.getItem('user');
+  const userInfo=JSON.parse(registerData);
+  setUserData(userInfo);
+},[]);
 
-const validate = (values) => {
-  const errors = {};
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-  if (!values.username) {
-    errors.username = "Username is required!";
+console.log(userdata);
+
+const handleSubmit= (e) => {
+  e.preventDefault();
+  if (userdata?.username ===username && userdata?.password === password){
+    navigate('/UserProfile')
+  } else {
+    console.log('Incorrect detaais');
   }
-  if (!values.email) {
-    errors.email = "Email is required!";
-  } else if (!regex.test(values.email)) {
-    errors.email = "This is not a valid email format!";
-  }
-  if (!values.password) {
-    errors.password = "Password is required";
-  } else if (values.password.length < 4) {
-    errors.password = "Password must be more than 4 characters";
-  } else if (values.password.length > 10) {
-    errors.password = "Password cannot exceed more than 10 characters";
-  }
-  return errors;
 };
+
+// useEffect(() => {
+//   console.log(formErrors);
+//   if (Object.keys(formErrors).length === 0 && isSubmit) {console.log(formValues);
+//   }
+// }, [formErrors]);
+
+// const validate = (values) => {
+//   const errors = {};
+//   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+//   if (!values.username) {
+//     errors.username = "Username is required!";
+//   }
+//   if (!values.email) {
+//     errors.email = "Email is required!";
+//   } else if (!regex.test(values.email)) {
+//     errors.email = "This is not a valid email format!";
+//   }
+//   if (!values.password) {
+//     errors.password = "Password is required";
+//   } else if (values.password.length < 4) {
+//     errors.password = "Password must be more than 4 characters";
+//   } else if (values.password.length > 10) {
+//     errors.password = "Password cannot exceed more than 10 characters";
+//   }
+//   return errors;
+// };
 
   return (
     
@@ -69,14 +67,7 @@ const validate = (values) => {
       <Nav/>
       <Box bgGradient='linear(to-r, gray.300, yellow.400, pink.200)' pt='30'
 			pb={'20'}>
-     
-    {/* {Object.keys(formErrors).length === 0 && isSubmit ? (
-        <div className="ui message success">Signed in successfully</div>
-      ) : (
-        <pre>{JSON.stringify(formValues, undefined, 2)}</pre>
-      )} */}
-   
-         <Box
+        <Box
 				w={['full', 'md']}
 				p={[8,10]}
 				mt={[20, '10vh']}
@@ -99,20 +90,20 @@ const validate = (values) => {
             type={'text'} 
             name={'username'}
             placeholder={'User name'}  
-            value={formValues.username}  
-            onChange={handleChange}
+            value={username}  
+            onChange={(e) => setUserName(e.target.value)}
             />
-            <Text color='Red'> {formErrors.username}</Text>
+           
     
             <FormLabel mt='4'>Email</FormLabel>
             <Input rounded='none' variant='filled'
             type={'text'} 
             placeholder={'Email'}
             name={'email'}
-            value={formValues.email}  
-            onChange={handleChange}
+            value={email}  
+            onChange={(e) => setEmail(e.target.value)}
             />
-           <Text color='Red'> {formErrors.email}</Text>
+           
 
             
             <FormLabel mt='4'>Password</FormLabel>
@@ -120,8 +111,8 @@ const validate = (values) => {
             type={'password'} 
             placeholder={'Password'}
             name={'password'}
-            value={formValues.password}  
-            onChange={handleChange}
+            value={password}  
+            onChange={(e) => setPassword(e.target.value)}
             />
             {/* <Text color='Red'> {formErrors.password}</Text> */}
 
@@ -130,10 +121,10 @@ const validate = (values) => {
 
          <HStack w='full' justify='space-between' mt='4'>
 				<Checkbox isRequired align={'flex-start'}
-					checked={formValues.tick} 
+					checked={tick} 
 					type= {'checkbox'}
 					name={'tick'}
-					onChange={handleChange}
+          onChange={(e) => setTick(e.target.value)}
 					>
 					Remember Password
 				</Checkbox>

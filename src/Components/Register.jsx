@@ -16,15 +16,19 @@ const Register = () => {
     phone:'',
     email: '',
     school: '',
-    description: '',
+    address: '',
     password: '',
     tick:false,
  };
 
  const [formValues, setFormValues]= useState(initialValue);
- const [formErrors, setFormErrors]= useState({});
-const [isSubmit, setIsSubmit] = useState(false);
-
+ 
+ const handleSubmit= (e) => {
+	e.preventDefault();
+	const user= JSON.stringify(formValues);
+	sessionStorage.getItem('user') ===null && sessionStorage.setItem('user', user);
+	navigate('/Login')
+ }
 
  const handleChange =(e) => {
   const {name,value,type, checked} = e.target;
@@ -32,41 +36,34 @@ const [isSubmit, setIsSubmit] = useState(false);
   console.log(formValues);
  }
 
- const handleSubmit= (e) => {
-  e.preventDefault();
-  const user= JSON.stringify(formValues);
-  sessionStorage.getItem('user') ===null && sessionStorage.setItem('user', user);
-  navigate('/Login')
-  setFormErrors(validate(formValues));
-  setIsSubmit(true);
-}
+ 
 
-useEffect(() => {
-  console.log(formErrors);
-  if (Object.keys(formErrors).length === 0 && isSubmit) {console.log(formValues);
-  }
-}, [formErrors]);
+// useEffect(() => {
+//   console.log(formErrors);
+//   if (Object.keys(formErrors).length === 0 && isSubmit) {console.log(formValues);
+//   }
+// }, [formErrors]);
 
-const validate = (values) => {
-  const errors = {};
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-  if (!values.username) {
-    errors.username = "Username is required!";
-  }
-  if (!values.email) {
-    errors.email = "Email is required!";
-  } else if (!regex.test(values.email)) {
-    errors.email = "This is not a valid email format!";
-  }
-  if (!values.password) {
-    errors.password = "Password is required";
-  } else if (values.password.length < 4) {
-    errors.password = "Password must be more than 4 characters";
-  } else if (values.password.length > 10) {
-    errors.password = "Password cannot exceed more than 10 characters";
-  }
-  return errors;
-};
+// const validate = (values) => {
+//   const errors = {};
+//   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+//   if (!values.username) {
+//     errors.username = "Username is required!";
+//   }
+//   if (!values.email) {
+//     errors.email = "Email is required!";
+//   } else if (!regex.test(values.email)) {
+//     errors.email = "This is not a valid email format!";
+//   }
+//   if (!values.password) {
+//     errors.password = "Password is required";
+//   } else if (values.password.length < 4) {
+//     errors.password = "Password must be more than 4 characters";
+//   } else if (values.password.length > 10) {
+//     errors.password = "Password cannot exceed more than 10 characters";
+//   }
+//   return errors;
+// };
 
   return (
    <>
@@ -74,13 +71,6 @@ const validate = (values) => {
    	<Nav/>
 		<Box bgGradient='linear(to-r, gray.300, yellow.400, pink.200)' pt='30'
 				pb={'20'}>
-		
-		{/* {Object.keys(formErrors).length === 0 && isSubmit ? (
-			<div className="ui message success">Signed in successfully</div>
-			) : (
-			<pre>{JSON.stringify(formValues, undefined, 2)}</pre>
-			)} */}
-		
 			<Box 
 				w={['full', 'md']}
 				p={[8,10]}
@@ -107,7 +97,7 @@ const validate = (values) => {
 					value={formValues.username}  
 					onChange={handleChange}
 					/>
-						<p>{formErrors.username}</p>
+						
 					
 					<FormLabel mt='3'>First Name</FormLabel>
 					<Input rounded='none' variant='filled'
@@ -165,8 +155,7 @@ const validate = (values) => {
 					value={formValues.email}  
 					onChange={handleChange}
 					/>
-						<p>{formErrors.email}</p>
-
+					
 
 					<FormLabel mt='3'>School</FormLabel>
 					<Input rounded='none' variant='filled'
@@ -178,12 +167,12 @@ const validate = (values) => {
 					/>
 		
 					<FormLabel mt='3'>Description</FormLabel>
-					<Textarea
+					<Input
 					size={'lg'}
 					type={'text'}
-					placeholder={'Description'}
-					name={'description'}
-					value={formValues.description}  
+					placeholder={'Address'}
+					name={'address'}
+					value={formValues.address}  
 					onChange={handleChange}
 					/>
 		
@@ -195,12 +184,12 @@ const validate = (values) => {
 					value={formValues.password}  
 					onChange={handleChange}
 					/>
-						<p>{formErrors.password}</p>
+						
 				</FormControl>
 			</VStack>
 
 			<HStack w='full' justify='space-between' mt='3'>
-					<Checkbox align={'flex-start'}
+					<Checkbox isRequired align={'flex-start'}
 					checked={formValues.tick} 
 					type= {'checkbox'}
 					name={'tick'}
