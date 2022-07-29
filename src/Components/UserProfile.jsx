@@ -16,7 +16,7 @@ const UserProfile = () => {
     <>
         <Nav/>
         <Box bgGradient='linear(to-r, gray.300, yellow.400, pink.200)'
-				pb={'20'} height={['100vh']} width={'100%'} >
+				pb={'20'} width={'100%'} >
           <VStack spacing='1' align={['center']} w='full' pt={'5'}>
             <Heading align={['center']}>Welcome to your PRESH BLOG Dashboard</Heading>
             <Text fontSize={'3xl'}>Home of quality contents</Text>

@@ -40,7 +40,7 @@ const handleSubmit= (e) => {
     <>
       <Nav/>
       <Box bgGradient='linear(to-r, gray.300, yellow.400, pink.200)' pt='30'
-			pb={'20'} height={['100vh']} >
+			pb={'20'} >
         <Box
 				w={['full', 'md']}
 				p={[8,10]}
