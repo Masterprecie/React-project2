@@ -59,8 +59,8 @@ const Register = () => {
 				onSubmit={handleSubmit}
 			>
 				<VStack spacing='4' align='flex-start' w='full'>
-					<VStack spacing='1' align={['flex-start', 'center']} w='full' mb='3'>
-					<Heading>Sign Up</Heading>
+					<VStack spacing='1' align={'center'} w='full' mb='3'>
+					<Heading  fontSize={'5xl'}>Sign Up</Heading>
 					<Text>Enter your details to Register</Text>
 				</VStack>
 				<FormControl isRequired>

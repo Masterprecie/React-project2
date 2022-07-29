@@ -39,13 +39,13 @@ const handleSubmit= (e) => {
     
     <>
       <Nav/>
-      <Box bgGradient='linear(to-r, gray.300, yellow.400, pink.200)' pt='30'
+      <Box bgGradient='linear(to-r, gray.300, yellow.400, pink.200)'
 			pb={'20'} >
         <Box
 				w={['full', 'md']}
 				p={[8,10]}
-				mt={[20, '10vh']}
-				mb={'20'}
+				pt={'10'}
+        pb={'20'}
 				mx='auto'
 				border={['none', '1px']}
 				borderColor={['','grey.300']}
@@ -54,8 +54,8 @@ const handleSubmit= (e) => {
 				onSubmit={handleSubmit}
          >
          <VStack spacing='4' align='flex-start' w='full'>
-            <VStack spacing='1' align={['flex-start', 'center']} w='full' mb='3'>
-            <Heading>Login</Heading>
+            <VStack spacing='1' align={'center'} w='full' mb='3'>
+            <Heading fontSize={'5xl'}>Login</Heading>
             <Text>Enter Your Details to Login</Text>
           </VStack>
           <FormControl isRequired>
