@@ -1,6 +1,6 @@
 import { Flex, List, Text } from '@chakra-ui/react'
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 
 
@@ -11,7 +11,7 @@ const Nav = () => {
    backgroundColor={'gray.700'}
    padding='5'
    >
-   <Text fontWeight={'bold'} fontSize='4xl' color='white' >PRESH BLOG</Text>
+   <Text fontWeight={'bold'} fontSize={{base:'1xl', md:'3xl', lg:'4xl'}} color='white' >PRESH BLOG</Text>
       <List display={'flex'} 
       fontWeight={'bold'}
       gap='5'>

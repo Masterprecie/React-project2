@@ -1,5 +1,6 @@
 import { Box, Heading, Text, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react'
+import Footer from './Footer';
 import Nav from './Nav';
 
 const UserProfile = () => {
@@ -14,14 +15,14 @@ const UserProfile = () => {
   return (
     <>
         <Nav/>
-        <Box bgGradient='linear(to-r, gray.300, yellow.400, pink.200)' pt='30'
-				pb={'20'} height='100vh' width={['full', 'full']} >
-          <VStack spacing='1' align={['flex-start', 'center']} w='full' mb='3'>
-            <Heading>Welcome to your PRESH BLOG Dashboard</Heading>
-            <Text>Home of quality contents</Text>
+        <Box bgGradient='linear(to-r, gray.300, yellow.400, pink.200)'
+				pb={'20'} height={['100vh']} width={'100%'} >
+          <VStack spacing='1' align={['center']} w='full' pt={'5'}>
+            <Heading align={['center']}>Welcome to your PRESH BLOG Dashboard</Heading>
+            <Text fontSize={'3xl'}>Home of quality contents</Text>
             <Text>See your details below;</Text>
           </VStack>
-          <Box w='50%' m={'auto'} bgColor='whitesmoke' padding='10'>
+          <Box w= {{base:'80%', md:'70%', lg:'70%'}} m={'auto'} mt={{base:'5', md:'20', lg:'20'}}  mb={{base:'5', md:'20', lg:'20'}}bgColor='whitesmoke' padding='10' >
             <Text padding={'3'}>Username: {userdata.username}</Text>
             <Text padding={'3'}>Full Name: {userdata.firstName} {userdata.lastName}</Text>
             <Text padding={'3'}>Age: {userdata.age}</Text>
@@ -32,8 +33,8 @@ const UserProfile = () => {
             <Text padding={'3'}>Address: {userdata.address}</Text>
             <Text padding={'3'}>Password: {userdata.password}</Text>
           </Box>
-
         </Box>
+        <Footer/>
    </>
   )
 }

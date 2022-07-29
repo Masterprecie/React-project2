@@ -1,8 +1,12 @@
-import { Button, Checkbox,FormControl, FormLabel, Input, Textarea, Box, VStack, Select, Heading, Text, HStack } from '@chakra-ui/react'
+import { Button, Checkbox,FormControl, FormLabel, Input, Box, VStack, Select, Heading, Text, HStack, IconButton, Icon } from '@chakra-ui/react'
 import React from 'react'
-import { useState, useEffect} from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+import Footer from './Footer';
 import Nav from './Nav';
+
+
+
 
 const Register = () => {
   const navigate= useNavigate();
@@ -11,7 +15,7 @@ const Register = () => {
     username: '',
     firstName: '',
     lastName: '',
-    age: 0,
+    age: NaN,
 	 select: '',
     phone:'',
     email: '',
@@ -36,38 +40,9 @@ const Register = () => {
   console.log(formValues);
  }
 
- 
-
-// useEffect(() => {
-//   console.log(formErrors);
-//   if (Object.keys(formErrors).length === 0 && isSubmit) {console.log(formValues);
-//   }
-// }, [formErrors]);
-
-// const validate = (values) => {
-//   const errors = {};
-//   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-//   if (!values.username) {
-//     errors.username = "Username is required!";
-//   }
-//   if (!values.email) {
-//     errors.email = "Email is required!";
-//   } else if (!regex.test(values.email)) {
-//     errors.email = "This is not a valid email format!";
-//   }
-//   if (!values.password) {
-//     errors.password = "Password is required";
-//   } else if (values.password.length < 4) {
-//     errors.password = "Password must be more than 4 characters";
-//   } else if (values.password.length > 10) {
-//     errors.password = "Password cannot exceed more than 10 characters";
-//   }
-//   return errors;
-// };
 
   return (
    <>
-	 
    	<Nav/>
 		<Box bgGradient='linear(to-r, gray.300, yellow.400, pink.200)' pt='30'
 				pb={'20'}>
@@ -128,7 +103,7 @@ const Register = () => {
 					
 
 					<FormLabel mt='3'>Gender</FormLabel>
-					<Select placeholder='Select a Gender'
+					<Select placeholder='Select a Gender' variant='filled'
 					name={'select'}
 					value={formValues.select}  
 					onChange={handleChange}>
@@ -136,6 +111,62 @@ const Register = () => {
 						<option>Female</option>
 						<option>Others</option>
 					</Select>
+					
+					<FormControl>
+					<FormLabel mt='3'>News Categories</FormLabel>
+					<Checkbox pr={'2'} align={'flex-start'}
+					checked={formValues.tick} 
+					type= {'checkbox'}
+					name={'tick'}
+					onChange={handleChange}
+					>
+					Entertainment
+					</Checkbox>
+
+					<Checkbox pr={'2'} align={'flex-start'}
+					checked={formValues.tick} 
+					type= {'checkbox'}
+					name={'tick'}
+					onChange={handleChange}
+					>
+					Sports
+					</Checkbox>
+
+					<Checkbox pr={'2'}  align={'flex-start'}
+					checked={formValues.tick} 
+					type= {'checkbox'}
+					name={'tick'}
+					onChange={handleChange}
+					>
+					Music
+					</Checkbox>
+					<Checkbox pr={'2'} align={'flex-start'}
+					checked={formValues.tick} 
+					type= {'checkbox'}
+					name={'tick'}
+					onChange={handleChange}
+					>
+					Education
+					</Checkbox>
+					<Checkbox pr={'2'} align={'flex-start'}
+					checked={formValues.tick} 
+					type= {'checkbox'}
+					name={'tick'}
+					onChange={handleChange}
+					>
+					Politics
+					</Checkbox>
+					<Checkbox pr={'2'} align={'flex-start'}
+					checked={formValues.tick} 
+					type= {'checkbox'}
+					name={'tick'}
+					onChange={handleChange}
+					>
+					Foreign
+					</Checkbox>
+					</FormControl>
+					
+					
 					
 					<FormLabel mt='3'>Phone</FormLabel>
 					<Input rounded='none' variant='filled'
@@ -166,8 +197,8 @@ const Register = () => {
 					onChange={handleChange}
 					/>
 		
-					<FormLabel mt='3'>Description</FormLabel>
-					<Input
+					<FormLabel mt='3'>Address</FormLabel>
+					<Input variant='filled'
 					size={'lg'}
 					type={'text'}
 					placeholder={'Address'}
@@ -183,11 +214,12 @@ const Register = () => {
 					name={'password'}
 					value={formValues.password}  
 					onChange={handleChange}
+					
 					/>
 						
 				</FormControl>
 			</VStack>
-
+			
 			<HStack w='full' justify='space-between' mt='3'>
 					<Checkbox isRequired align={'flex-start'}
 					checked={formValues.tick} 
@@ -200,10 +232,10 @@ const Register = () => {
 			</HStack>
 
 			<Text mt='3'> All ready have an account? <Link to='/Login'> Log In</Link></Text>
-			<Button mt='3' colorScheme={'blue'}  w={['auto','full']} type='submit'> Submit </Button>
-			
+			<Button mt='3' colorScheme={'blue'}  w={['full','full']} type='submit'> Submit </Button>
 			</Box>
 		</Box>
+		<Footer/>
    </>
    )
   
