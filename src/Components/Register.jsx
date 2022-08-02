@@ -30,7 +30,10 @@ const Register = () => {
  const handleSubmit= (e) => {
 	e.preventDefault();
 	const user= JSON.stringify(formValues);
-	sessionStorage.getItem('user') ===null && sessionStorage.setItem('user', user);
+	sessionStorage.getItem('user') === null 
+	? sessionStorage.setItem('user', user)
+	: (sessionStorage.removeItem('user'),
+	sessionStorage.setItem('user', user));
 	navigate('/Login')
  }
 
